@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   chrome-shoter:
     image: selenium/standalone-chrome
     container_name: my-chrome
@@ -7,4 +8,20 @@ services:
       - /dev/shm:/dev/shm
     ports:
       - "4444:4444"
+    networks:
+      - my-net
 
+
+  app-service:
+    image: my-app
+    ports:
+      - "8080:8080"
+    networks:
+      - my-net
+    depends_on:
+      - chrome-shoter
+
+
+
+networks:
+  my-net:
